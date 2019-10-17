@@ -57,11 +57,15 @@ export class FileUtil {
     convertArrayToCsv (data) {
         const rows = data
         
-        let csvContent = "Device ID, Device Twin, Periodic Message, Power Up, Power Up, HardWare Version, SoftWare Version, Product Version, Battery Percentage, Latitute, Longitute, Temperature Range" 
-        + ("\n") + rows.map(e => e.join(",")).join("\n");
+        let csvContent = "Device ID, Device Twin, Periodic Message, Power Up, Power Up, HardWare Version, SoftWare Version, Product Version, Battery Percentage, Latitute, Longitute, Temperature Range \n" 
+       for(let i=0;i<rows.length;i++) {
+           console.log(rows[i]);
+           csvContent += rows[i].deviceId + ','+ rows[i].A1+','+rows[i].A6+','+'\n';
+
+       }
 
             console.log(csvContent);
-            this.downloadCsv(csvContent)
+            // this.downloadCsv(csvContent)
     }
     downloadCsv(csvContent) {
         var hiddenElement = document.createElement('a');

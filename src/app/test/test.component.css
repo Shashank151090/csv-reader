@@ -10,3 +10,10 @@
 .float-right {
     float: right;
 }
+
+.row-style {
+    min-width: 300px;
+    white-space: nowrap;
+    overflow: hidden; 
+    max-width: 500px;
+}

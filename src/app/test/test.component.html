@@ -14,13 +14,21 @@
     <div>
         <table class="table table-responsive table-hover table-set-width" border="1">
             <tbody>
-                <ng-container *ngFor="let data of filteredData;let i = index">
+                <ng-container *ngFor="let data of arrayToDisplay;let i = index">
                     <tr >
-                        <td style="min-width: 300px; white-space: nowrap;overflow: hidden; max-width: 500px;" *ngFor="let csvRec of data;let i=index" (click)="decodeData(csvRec)">{{csvRec}}</td>
-                        <!-- <ng-container *ngFor="let data of csvRec;let j=index"> 
-                            <td style="min-width: 150px; max-width: 500px; word-break: break-word;">{{data}}</td>
-                        </ng-container> -->
-                        <td><button (click)="decodeData(data,i)">Decode Data</button></td>
+                        <td class="row-style">{{data.deviceId}}</td>
+                        <td class="row-style">{{data.A6}}</td>
+                        <td class="row-style">{{data.ccid}}</td>
+                        <td class="row-style">{{data.imei}}</td>
+                        <td class="row-style">{{data.A4}}</td>
+                        <td class="row-style">{{data.battery}}</td>
+                        <td class="row-style">{{data.lat}}</td>
+                        <td class="row-style">{{data.long}}</td>
+                        <td class="row-style">{{data.A1}}</td>
+                        <td class="row-style">{{data.pv}}</td>
+                        <td class="row-style">{{data.swv}}</td>
+                        <td class="row-style">{{data.hwv}}</td>
+                        
                     </tr>
                 </ng-container>
             </tbody>

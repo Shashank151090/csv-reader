@@ -24,7 +24,10 @@ export class TestComponent implements OnInit {
   decodedA1Data:any = [];
   decodedA4Data:any = [];
   decodedA6Data:any = [];
+  dataIndex = 0;
   filteredData = [];
+  objToDisplay = {};
+  arrayToDisplay = [];
   registrationForm: any;
   files: any = [{name: '67510A100E'},{name:'67510A100E'}, {name: '67510A100E'}, {name: '67510A100E'}]
   deviceId:string = '67510A1020';
@@ -63,13 +66,60 @@ export class TestComponent implements OnInit {
           headerLength, Constants.validateHeaderAndRecordLengthFlag, Constants.tokenDelimeter);
            this.filteredData.push(this.filterPipe.transform(this.csvRecords));
            for( let i=0; i< this.filteredData.length; i++) {
-             this.filteredData[i].sort(function(a,b) {
-               if (a.startsWith('')) {
-                 
+             this.decodeData(this.filteredData[i],this.dataIndex)
+             for(let j=0; j<this.filteredData[i].length; j++) {
+               if (typeof(this.filteredData[i][j]) =="string" && this.filteredData[i][j].startsWith('67')) {
+                 this.objToDisplay['deviceId'] = this.filteredData[i][j];
                }
-             })
+               else if (typeof(this.filteredData[i][j]) =="string" && this.filteredData[i][j].startsWith('A6')) {
+                this.objToDisplay['A6'] = this.filteredData[i][j];
+              }
+              else if (typeof(this.filteredData[i][j]) =="string" && this.filteredData[i][j].startsWith('A4')) {
+                this.objToDisplay['A4'] = this.filteredData[i][j];
+              }
+              else if (typeof(this.filteredData[i][j]) =="string" && this.filteredData[i][j].startsWith('A1')) {
+                this.objToDisplay['A1'] = this.filteredData[i][j];
+              }
+              else if (typeof(this.filteredData[i][j]) =="string" && this.filteredData[i][j].startsWith('A7')) {
+                this.objToDisplay['A7'] = this.filteredData[i][j];
+              }
+              else if (typeof(this.filteredData[i][j]) =="object" && this.filteredData[i][j].imei) {
+                this.objToDisplay['imei'] = this.filteredData[i][j].imei;
+              }
+              else if (typeof(this.filteredData[i][j]) =="object" && this.filteredData[i][j].ccid) {
+                this.objToDisplay['ccid'] = this.filteredData[i][j].ccid;
+              }
+              else if (typeof(this.filteredData[i][j]) =="object" && this.filteredData[i][j].battery) {
+                this.objToDisplay['battery'] = this.filteredData[i][j].battery;
+              }
+              else if (typeof(this.filteredData[i][j]) =="object" && this.filteredData[i][j].lat) {
+                this.objToDisplay['lat'] = this.filteredData[i][j].lat;
+              }
+              else if (typeof(this.filteredData[i][j]) =="object" && this.filteredData[i][j].long) {
+                this.objToDisplay['long'] = this.filteredData[i][j].long;
+              }
+              else if (typeof(this.filteredData[i][j]) =="object" && this.filteredData[i][j].hwv) {
+                this.objToDisplay['hwv'] = this.filteredData[i][j].hwv;
+              }
+              else if (typeof(this.filteredData[i][j]) =="object" && this.filteredData[i][j].swv) {
+                this.objToDisplay['swv'] = this.filteredData[i][j].swv;
+              }
+              else if (typeof(this.filteredData[i][j]) =="object" && this.filteredData[i][j].pv) {
+                this.objToDisplay['pv'] = this.filteredData[i][j].pv;
+              }
+              // else if (typeof(this.filteredData[i][j]) =="object" && this.filteredData[i][j].temp) {
+              //   this.objToDisplay['temp'] = this.filteredData[i][j];
+              // }
+
+             }
+             this.arrayToDisplay.push(this.objToDisplay);
+
+
+             break;
            }
           console.log(this.filteredData);
+          console.log(this.arrayToDisplay);
+
           
       
       if(this.csvRecords == null){
@@ -95,32 +145,33 @@ export class TestComponent implements OnInit {
   }
 
   decodeData(data,index) {
+    this.dataIndex++;
     for(let i=0; i< data.length; i++) {
       if(typeof(data[i]) =="string" && data[i].startsWith('A4')) {
         this.decodedA4Data = this.extractService.extractA4Data(data[i]);
         console.log("A4 decoded data:",this.decodedA4Data);
         console.log("data without sign", this.extractService.dataWithoutSign);
-        this.filteredData[index].push(this.decodedA4Data.batteryPer);
-       this.filteredData[index].push(this.decodedA4Data.latitute);
-       this.filteredData[index].push(this.decodedA4Data.longitute);
+        this.filteredData[index].push({"battery":this.decodedA4Data.batteryPer});
+       this.filteredData[index].push({"lat":this.decodedA4Data.latitute});
+       this.filteredData[index].push({"long":this.decodedA4Data.longitute});
        for(let j=0; j<this.decodedA4Data.extractedData.length; j++) {
-         this.filteredData[index].push(this.decodedA4Data.extractedData[j]);
+         this.filteredData[index].push({"temp":this.decodedA4Data.extractedData[j]});
        }
        }
 
        else if(typeof(data[i]) =="string" && data[i].startsWith('A6')) {
         this.decodedA6Data = this.extractService.extractA6Data(data[i]);
         console.log("A6 decoded data:", this.decodedA6Data);
-        this.filteredData[index].push(this.decodedA6Data.imei);
-        this.filteredData[index].push(this.decodedA6Data.ccid);
+        this.filteredData[index].push({"imei":this.decodedA6Data.imei});
+        this.filteredData[index].push({"ccid":this.decodedA6Data.ccid});
       }  
 
       else if(typeof(data[i]) =="string" && data[i].startsWith('A1')) {
         this.decodedA1Data = this.extractService.extractA1Data(data[i]);
         console.log("A1 decoded data:", this.decodedA1Data);
-        this.filteredData[index].push(this.decodedA1Data.hwv);
-        this.filteredData[index].push(this.decodedA1Data.swv);
-        this.filteredData[index].push(this.decodedA1Data.pv);
+        this.filteredData[index].push({"hwv":this.decodedA1Data.hwv});
+        this.filteredData[index].push({"swv":this.decodedA1Data.swv});
+        this.filteredData[index].push({"pv":this.decodedA1Data.pv});
       }
 
     }
@@ -168,14 +219,14 @@ export class TestComponent implements OnInit {
   }
 
   deleteFile() {
-    this.api.deleteFiles().subscribe((csvData) => {
+    // this.api.deleteFiles().subscribe((csvData) => {
       console.log("deleted")
-    })
+    // })
   }
 
   printAllData() {
-    console.log(this.filteredData);
-    this._fileUtil.convertArrayToCsv(this.filteredData);
+    console.log(this.arrayToDisplay);
+    this._fileUtil.convertArrayToCsv(this.arrayToDisplay);
   }
 
 }
