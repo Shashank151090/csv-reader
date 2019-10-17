@@ -1,0 +1,12 @@
+.table-set-width td, .table th {
+    max-width: 500px !important;
+    word-break: break-word;
+}
+.table td, .table th {
+    min-width: 300px;
+    max-width: 500px;
+    word-break: break-word;
+}
+.float-right {
+    float: right;
+}

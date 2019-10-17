@@ -1,0 +1,31 @@
+<div class="container">
+    <table>
+        <tr>
+            <h1>CSV File Reader</h1> 
+            <td style="padding: 5px;">
+                <button class="btn btn-primary" (click)="downloadFile()">Download New File</button> 
+            </td>
+            <td style="padding: 5px;">                
+                <button class="btn btn-primary" (click)="readData()">Read File</button>
+            </td>          
+        </tr>
+    </table>
+    
+    <div>
+        <table class="table table-responsive table-hover table-set-width" border="1">
+            <tbody>
+                <ng-container *ngFor="let data of filteredData;let i = index">
+                    <tr >
+                        <td style="min-width: 300px; white-space: nowrap;overflow: hidden; max-width: 500px;" *ngFor="let csvRec of data;let i=index" (click)="decodeData(csvRec)">{{csvRec}}</td>
+                        <!-- <ng-container *ngFor="let data of csvRec;let j=index"> 
+                            <td style="min-width: 150px; max-width: 500px; word-break: break-word;">{{data}}</td>
+                        </ng-container> -->
+                        <td><button (click)="decodeData(data,i)">Decode Data</button></td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+    <div><input type="button" name="Print" id="txtFileReset" class="btn btn-primary float-right" (click)="printAllData()" value="Print"/></div>
+
+</div>
