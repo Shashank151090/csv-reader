@@ -2,10 +2,8 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { Router }                       from "@angular/router";
 import { FileUtil }                     from './file.util';
 import { Constants }                    from './test.constants';
-import { ExportToCsv }                  from 'export-to-csv';
 import { filterPipe }                   from './test.pipe'
 import { ApiService }                   from '../api.service';
-import { FormBuilder }       from '@angular/forms';
 import { ExtractDataService } from '../extract-data.service';
  
 @Component({
@@ -21,9 +19,6 @@ export class TestComponent implements OnInit {
 
   csvRecords = [];
   csvRecordData = [];
-  decodedData:any = [];
-  //  testArray = [];
-  array2 = [];
   decodedA1Data:any = [];
   decodedA4Data:any = [];
   decodedA6Data:any = [];
@@ -33,28 +28,20 @@ export class TestComponent implements OnInit {
   objToDisplay = {};
   arrayToDisplay = [];
   tableHeader = ['Device Id', 'A6', 'CCID', 'IMEI', 'A4', 'Battery %', 'Latitute', 'Longitute', 'A1', 'Pv', 'Software Version', 'Hardware Version', 'Temperature Range']
-  registrationForm: any;
   deviceId:string = '67510A1020';
 
   constructor(private _router: Router,
     private _fileUtil: FileUtil,
     private filterPipe: filterPipe,
     private api: ApiService,
-    public fb: FormBuilder,
     private extractService: ExtractDataService
   ) {
-    this.registrationForm = this.fb.group({
-      fileName: ['']
-    })
+    
    }
 
   ngOnInit() {
-    
-
    }
 
- 
-  
   printCsv() {
     return new Promise((resolve, reject) => {
     this.api.getFiles().subscribe((csvData) => {
@@ -122,7 +109,6 @@ export class TestComponent implements OnInit {
             this.tempRange = []; 
             this.arrayToDisplay.push(objToDisplay);
           console.log(this.arrayToDisplay)
-          this.displayData(this.objToDisplay);
           this.filteredData = [];
 
           
@@ -148,11 +134,7 @@ export class TestComponent implements OnInit {
     resolve();
   })
   }
-  displayData(data) {
-    let array2 = data;
-    console.log(array2)
-    // this.arrayToDisplay.push(array2);
-  }
+ 
 
   decodeImie(data) {
     let stringToReturn = "";
@@ -201,7 +183,20 @@ export class TestComponent implements OnInit {
     // this.csvRecords = [];
   }
   readData() {
-    this.printCsv().then(res => this.deleteFile());
+    setTimeout(() => {
+      this.printCsv().then(res => this.deleteFile());
+    }, 5000)
+   
+  }
+
+
+  getData(event) {
+    console.log(event);
+    this.downloadFile().then(res => 
+      setTimeout (() => {
+      this.readData()
+    }, 8000)
+      );
   }
 
   downloadFile() {
@@ -233,6 +228,7 @@ export class TestComponent implements OnInit {
     let hexDeviceId= newDeviceId.toString(16);
     this.deviceId = hexDeviceId.toString();
     resolve();
+    
   })
   }
 
