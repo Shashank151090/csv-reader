@@ -13,22 +13,28 @@
     
     <div>
         <table class="table table-responsive table-hover table-set-width" border="1">
+            <thead>
+                <th class="table-style" *ngFor="let header of tableHeader">
+                        {{header}}
+                </th>
+               
+            </thead>
             <tbody>
                 <ng-container *ngFor="let data of arrayToDisplay;let i = index">
                     <tr >
-                        <td class="row-style">{{data.deviceId}}</td>
-                        <td class="row-style">{{data.A6}}</td>
-                        <td class="row-style">{{data.ccid}}</td>
-                        <td class="row-style">{{data.imei}}</td>
-                        <td class="row-style">{{data.A4}}</td>
-                        <td class="row-style">{{data.battery}}</td>
-                        <td class="row-style">{{data.lat}}</td>
-                        <td class="row-style">{{data.long}}</td>
-                        <td class="row-style">{{data.A1}}</td>
-                        <td class="row-style">{{data.pv}}</td>
-                        <td class="row-style">{{data.swv}}</td>
-                        <td class="row-style">{{data.hwv}}</td>
-                        
+                        <td [style.background-color]="data.deviceId ? '#eeeeee' : 'red'" >{{data.deviceId}}</td>
+                        <td [style.background-color]="data.A6 ? '#eeeeee' : 'red'" >{{data.A6}}</td>
+                        <td [style.background-color]="data.ccid ? '#eeeeee' : 'red'" >{{data.ccid}}</td>
+                        <td [style.background-color]="data.imei ? '#eeeeee' : 'red'" >{{data.imei}}</td>
+                        <td [style.background-color]="data.A4 ? '#eeeeee' : 'red'" >{{data.A4}}</td>
+                        <td [style.background-color]="data.battery ? '#eeeeee' : 'red'" >{{data.battery}}</td>
+                        <td [style.background-color]="data.lat ? '#eeeeee' : 'red'" >{{data.lat}}</td>
+                        <td [style.background-color]="data.long ? '#eeeeee' : 'red'" >{{data.long}}</td>
+                        <td [style.background-color]="data.A1 ? '#eeeeee' : 'red'" >{{data.A1}}</td>
+                        <td [style.background-color]="data.pv ? '#eeeeee' : 'red'" >{{data.pv}}</td>
+                        <td [style.background-color]="data.swv ? '#eeeeee' : 'red'" >{{data.swv}}</td>
+                        <td [style.background-color]="data.hwv ? '#eeeeee' : 'red'" >{{data.hwv}}</td>
+                        <td *ngFor= "let tempData of data.temp">{{tempData.temp}}</td>
                     </tr>
                 </ng-container>
             </tbody>

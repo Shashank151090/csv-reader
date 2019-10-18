@@ -28,6 +28,14 @@ app.get('/', function(req, res) {
 app.get('/getFile', function(req, res) {
     const file = path.join(fileLocation);
      res.download(file);
+
+     if(fs.existsSync(fileLocation)) {
+      
+           console.log("file downloaded successfully")
+    }
+    else {
+        console.log("File not exists")
+    }
 })
 
 app.get('/downloadFile', function(req,res) {
@@ -38,13 +46,26 @@ app.get('/downloadFile', function(req,res) {
 })
 
 app.delete('/delete', function(req, res) {
-    // Assuming that 'path/file.txt' is a regular file.
-fs.unlink(path.join(fileLocation), (err) => {
-    if (err) {
-        throw err;
-    };
-    console.log('file was deleted');
-  });
+
+    fs.stat(path.join(fileLocation), function (err, stats) {
+        console.log("delete api called")
+        if (err) {
+            return console.error(err);
+        }
+     
+        if(fs.existsSync(fileLocation)) {
+            fs.unlink(path.join(fileLocation), (err) => {
+                if (err) {
+                    throw err;
+                };
+                console.log('file was deleted');
+              });
+        }
+        else {
+            console.log("File not exists")
+        }
 })
  
+})
+
 app.listen(4000, () => console.log('Server started on port 4000'));

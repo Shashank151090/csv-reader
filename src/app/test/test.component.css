@@ -6,12 +6,17 @@
     min-width: 300px;
     max-width: 500px;
     word-break: break-word;
+    background-color: #eeeeee;
+}
+
+.table th {
+    background-color: #8c8c8c;
 }
 .float-right {
     float: right;
 }
 
-.row-style {
+td .row-style, th .table-style {
     min-width: 300px;
     white-space: nowrap;
     overflow: hidden; 

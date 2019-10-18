@@ -57,15 +57,19 @@ export class FileUtil {
     convertArrayToCsv (data) {
         const rows = data
         
-        let csvContent = "Device ID, Device Twin, Periodic Message, Power Up, Power Up, HardWare Version, SoftWare Version, Product Version, Battery Percentage, Latitute, Longitute, Temperature Range \n" 
+        let csvContent = "Device ID, A6, IMEI, CCID, A1, HardWare Version, SoftWare Version, Product Version, A4, Battery Percentage, Latitute, Longitute, Temperature Range \n" 
        for(let i=0;i<rows.length;i++) {
            console.log(rows[i]);
-           csvContent += rows[i].deviceId + ','+ rows[i].A1+','+rows[i].A6+','+'\n';
+           csvContent += rows[i].deviceId + ','+ rows[i].A6+','+rows[i].imei+','+ rows[i].ccid+','+ rows[i].A1+','+ rows[i].hwv+','+ rows[i].swv+','+ rows[i].pv+','+ rows[i].A4+','+ rows[i].battery+','+ rows[i].lat+','+ rows[i].long+',';
+           for(let j=0;j<rows[i].temp.length;j++) {
+               csvContent += rows[i].temp[j].temp + ','
+           }
+           csvContent += '\n'
 
        }
 
             console.log(csvContent);
-            // this.downloadCsv(csvContent)
+             this.downloadCsv(csvContent)
     }
     downloadCsv(csvContent) {
         var hiddenElement = document.createElement('a');
