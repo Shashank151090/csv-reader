@@ -190,12 +190,32 @@ export class TestComponent implements OnInit {
   }
 
 
-  getData(event) {
-    console.log(event);
+repeat2() {
+  for(var i = 0;i < 10; i++){
+    let k = i;
+    let that = this
+    setTimeout(function(){
+      that.getData(event);
+        // console.log('count ', k);
+    }, 20000 * (k + 1));
+}
+}
+  
+ 
+
+// repeatData(i) {
+//     setTimeout(() =>{
+//       // this.getData(event);
+//     },10000)
+//   }
+
+
+  getData(event?:any) {
+    // console.log(event);
     this.downloadFile().then(res => 
       setTimeout (() => {
       this.readData()
-    }, 8000)
+    }, 5000)
       );
   }
 
