@@ -198,7 +198,7 @@ repeat2() {
   let endIndex = parseInt(this.endDeviceId,16)
   let noOfDevice = endIndex - startIndex;
   // console.log(noOfDevice);
-  for(var i = 0;i <= noOfDevice; i++){
+  for(var i = 0;i < 7; i++){
     let k = i;
     let that = this
     setTimeout(function(){
