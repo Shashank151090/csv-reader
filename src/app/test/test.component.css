@@ -9,6 +9,11 @@
     background-color: #eeeeee;
 }
 
+.table {
+    height: 500px;
+    overflow-x: auto;
+    overflow-y: auto;
+}
 .table th {
     background-color: #8c8c8c;
 }

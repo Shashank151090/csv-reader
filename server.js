@@ -26,12 +26,18 @@ app.get('/', function(req, res) {
 });
 
 app.get('/getFile', function(req, res) {
+    console.log("inside getFile server.js")
     const file = path.join(fileLocation);
-     res.download(file);
-
+    
+     res.download(file, function(err) {
+         if (err) {
+             console.log("error downloading file: ",err)
+         }
+     });
+console.log("fetching file: ",file)
      if(fs.existsSync(fileLocation)) {
       
-           console.log("file downloaded successfully")
+           console.log("file data fetched successfully")
     }
     else {
         console.log("File not exists")

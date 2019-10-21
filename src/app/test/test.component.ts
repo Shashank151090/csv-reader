@@ -23,12 +23,14 @@ export class TestComponent implements OnInit {
   decodedA4Data:any = [];
   decodedA6Data:any = [];
   tempRange:any = [];
+  endDeviceId: string;
+  startDeviceId: string;
   dataIndex = 0;
   filteredData = [];
   objToDisplay = {};
   arrayToDisplay = [];
   tableHeader = ['Device Id', 'A6', 'CCID', 'IMEI', 'A4', 'Battery %', 'Latitute', 'Longitute', 'A1', 'Pv', 'Software Version', 'Hardware Version', 'Temperature Range']
-  deviceId:string = '67510A1020';
+  deviceId:string = this.startDeviceId;
 
   constructor(private _router: Router,
     private _fileUtil: FileUtil,
@@ -52,6 +54,7 @@ export class TestComponent implements OnInit {
         let headersRow = this._fileUtil.getHeaderArray(csvRecordsArray, Constants.tokenDelimeter);
         headerLength = headersRow.length; 
       }
+      console.log("Reading data from file")
       
       this.csvRecords = this._fileUtil.getDataRecordsArrayFromCSVFile(csvRecordsArray, 
           headerLength, Constants.validateHeaderAndRecordLengthFlag, Constants.tokenDelimeter);
@@ -185,43 +188,39 @@ export class TestComponent implements OnInit {
   readData() {
     setTimeout(() => {
       this.printCsv().then(res => this.deleteFile());
-    }, 5000)
+    }, 7000)
    
   }
 
 
 repeat2() {
-  for(var i = 0;i < 10; i++){
+  let startIndex = parseInt(this.startDeviceId,16);
+  let endIndex = parseInt(this.endDeviceId,16)
+  let noOfDevice = endIndex - startIndex;
+  // console.log(noOfDevice);
+  for(var i = 0;i <= noOfDevice; i++){
     let k = i;
     let that = this
     setTimeout(function(){
       that.getData(event);
         // console.log('count ', k);
+        // console.log(startIndex, endIndex)
     }, 20000 * (k + 1));
 }
 }
-  
- 
-
-// repeatData(i) {
-//     setTimeout(() =>{
-//       // this.getData(event);
-//     },10000)
-//   }
-
 
   getData(event?:any) {
     // console.log(event);
     this.downloadFile().then(res => 
       setTimeout (() => {
       this.readData()
-    }, 5000)
+    }, 7000)
       );
   }
 
   downloadFile() {
     return new Promise((resolve, reject) => {
-    console.log(this.deviceId);
+    console.log(this.startDeviceId);
 
     let today = new Date();
     let dd = today.getDate()+1;
@@ -242,11 +241,11 @@ repeat2() {
     let todayDate = yyyy+month+date;
     // console.log(todayDate);
 
-    window.location.href = 'https://escavoxwebapi.azurewebsites.net/IoT/1.0/GetRaw/'+this.deviceId+'/20190901-0000/'+todayDate+'-0000';
-    let newDeviceId = parseInt(this.deviceId,16);
-    newDeviceId +=1;
-    let hexDeviceId= newDeviceId.toString(16);
-    this.deviceId = hexDeviceId.toString();
+    window.location.href = 'https://escavoxwebapi.azurewebsites.net/IoT/1.0/GetRaw/'+this.startDeviceId+'/20190901-0000/'+todayDate+'-0000';
+    let newstartDeviceId = parseInt(this.startDeviceId,16);
+    newstartDeviceId +=1;
+    let hexstartDeviceId= newstartDeviceId.toString(16);
+    this.startDeviceId = hexstartDeviceId.toString();
     resolve();
     
   })

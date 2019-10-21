@@ -27,6 +27,10 @@ export class ApiService {
 };
   getFiles() {
     return this.http.get('http://localhost:4000/getFile', {responseType: 'text'})
+    .pipe(
+      retry(3), // retry a failed request up to 3 times
+      catchError(this.handleError) // then handle the error
+    );
   }
   downloadFile(deviceId) {
     let body = {
