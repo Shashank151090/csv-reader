@@ -60,7 +60,18 @@ export class FileUtil {
         let csvContent = "Device ID, A6, IMEI, CCID, A1, HardWare Version, SoftWare Version, Product Version, A4, Battery Percentage, Latitute, Longitute, Temperature Range \n" 
        for(let i=0;i<rows.length;i++) {
            console.log(rows[i]);
-           csvContent += rows[i].deviceId + ','+ rows[i].A6+','+rows[i].imei+','+ rows[i].ccid+','+ rows[i].A1+','+ rows[i].hwv+','+ rows[i].swv+','+ rows[i].pv+','+ rows[i].A4+','+ rows[i].battery+','+ rows[i].lat+','+ rows[i].long+',';
+           csvContent += rows[i].deviceId + ','+
+                         rows[i].A6+','+
+                         rows[i].imei+','+ 
+                         rows[i].ccid+','+ 
+                         rows[i].A1+','+ 
+                         rows[i].hwv+','+ 
+                         rows[i].swv+','+ 
+                         rows[i].pv+','+ 
+                         rows[i].A4+','+ 
+                         rows[i].battery+','+ 
+                         rows[i].lat+','+ 
+                         rows[i].long+',';
            for(let j=0;j<rows[i].temp.length;j++) {
                csvContent += rows[i].temp[j].temp + ','
            }

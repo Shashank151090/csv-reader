@@ -9,6 +9,10 @@
     background-color: #eeeeee;
 }
 
+.set-position {
+    position: relative;
+    top:10px;
+}
 .table {
     height: 500px;
     overflow-x: auto;

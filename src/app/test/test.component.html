@@ -9,13 +9,17 @@
         <button class="btn btn-primary" (click)="getData($event)">Download New File</button> 
     </td> -->
     <!-- <td style="padding: 5px;">                 -->
-    <button class="btn btn-primary col-md-3" style="margin: 10px;" (click)="repeat2()">Read File</button>
+    <button class="btn btn-primary col-md-2" style="margin: 10px;" [disabled] = "disableDownload" (click)="repeat2()">Read File</button>
     <!-- </td>           -->
+    <div [hidden]="!downloadingFile" class="col-md-3 text-danger">File downloading. Please wait...
+        <span class="spinner-border text-danger set-position"></span>
+    </div>
 
    </div>
             
     
     <div>
+            <div [hidden]="!showProcessingMessage" class="text-danger">Removing old files from the system. Please wait...</div>
         <table class="table table-responsive table-hover table-set-width" border="1">
             <thead>
                 <th class="table-style" *ngFor="let header of tableHeader">

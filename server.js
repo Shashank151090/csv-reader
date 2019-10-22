@@ -56,7 +56,8 @@ app.delete('/delete', function(req, res) {
     fs.stat(path.join(fileLocation), function (err, stats) {
         console.log("delete api called")
         if (err) {
-            return console.error(err);
+            console.error(err);
+            return(err);
         }
      
         if(fs.existsSync(fileLocation)) {

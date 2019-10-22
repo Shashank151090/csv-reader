@@ -22,6 +22,8 @@ export class TestComponent implements OnInit {
   decodedA1Data:any = [];
   decodedA4Data:any = [];
   decodedA6Data:any = [];
+  downloadingFile:boolean = false;
+  disableDownload: boolean = false;
   tempRange:any = [];
   endDeviceId: string;
   startDeviceId: string;
@@ -111,7 +113,6 @@ export class TestComponent implements OnInit {
             }
             this.tempRange = []; 
             this.arrayToDisplay.push(objToDisplay);
-          console.log(this.arrayToDisplay)
           this.filteredData = [];
 
           
@@ -152,8 +153,6 @@ export class TestComponent implements OnInit {
     for(let i=0; i< data.length; i++) {
       if(typeof(data[i]) =="string" && data[i].startsWith('A4')) {
         this.decodedA4Data = this.extractService.extractA4Data(data[i]);
-        // console.log("A4 decoded data:",this.decodedA4Data);
-        // console.log("data without sign", this.extractService.dataWithoutSign);
         this.filteredData[0].push({"battery":this.decodedA4Data.batteryPer});
        this.filteredData[0].push({"lat":this.decodedA4Data.latitute});
        this.filteredData[0].push({"long":this.decodedA4Data.longitute});
@@ -178,6 +177,8 @@ export class TestComponent implements OnInit {
       }
 
     }
+    this.downloadingFile = false;
+    this.disableDownload = false;
   }
 
 
@@ -187,30 +188,38 @@ export class TestComponent implements OnInit {
   }
   readData() {
     setTimeout(() => {
-      this.printCsv().then(res => this.deleteFile());
-    }, 7000)
+      this.printCsv().then(res => 
+          this.deleteFile()
+        );
+    }, 1000)
    
   }
 
 
 repeat2() {
+  this.downloadingFile = true;
+  this.disableDownload = true;
   let startIndex = parseInt(this.startDeviceId,16);
   let endIndex = parseInt(this.endDeviceId,16)
   let noOfDevice = endIndex - startIndex;
   // console.log(noOfDevice);
   for(var i = 0;i < 7; i++){
+    if (i> noOfDevice){
+      break;
+    }
     let k = i;
     let that = this
     setTimeout(function(){
       that.getData(event);
+      that.downloadingFile = true;
+      that.disableDownload = true;
         // console.log('count ', k);
         // console.log(startIndex, endIndex)
     }, 20000 * (k + 1));
-}
+  }
 }
 
   getData(event?:any) {
-    // console.log(event);
     this.downloadFile().then(res => 
       setTimeout (() => {
       this.readData()
@@ -220,7 +229,6 @@ repeat2() {
 
   downloadFile() {
     return new Promise((resolve, reject) => {
-    console.log(this.startDeviceId);
 
     let today = new Date();
     let dd = today.getDate()+1;
@@ -239,7 +247,6 @@ repeat2() {
       month='0'+mm;
     } 
     let todayDate = yyyy+month+date;
-    // console.log(todayDate);
 
     window.location.href = 'https://escavoxwebapi.azurewebsites.net/IoT/1.0/GetRaw/'+this.startDeviceId+'/20190901-0000/'+todayDate+'-0000';
     let newstartDeviceId = parseInt(this.startDeviceId,16);
