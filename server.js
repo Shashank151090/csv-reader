@@ -57,13 +57,13 @@ app.delete('/delete', function(req, res) {
         console.log("delete api called")
         if (err) {
             console.error(err);
-            return(err);
+            // return(err);
         }
      
         if(fs.existsSync(fileLocation)) {
             fs.unlink(path.join(fileLocation), (err) => {
                 if (err) {
-                    throw err;
+                    console.log("Some error occured", err);
                 };
                 console.log('file was deleted');
               });

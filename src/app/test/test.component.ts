@@ -24,10 +24,13 @@ export class TestComponent implements OnInit {
   decodedA6Data:any = [];
   downloadingFile:boolean = false;
   disableDownload: boolean = false;
+  showProcessingMessage: boolean = false;
+  resumeDownload: boolean = false;
   tempRange:any = [];
   endDeviceId: string;
   startDeviceId: string;
   dataIndex = 0;
+  dataCounter = 0;
   filteredData = [];
   objToDisplay = {};
   arrayToDisplay = [];
@@ -55,6 +58,11 @@ export class TestComponent implements OnInit {
       if(Constants.isHeaderPresentFlag){
         let headersRow = this._fileUtil.getHeaderArray(csvRecordsArray, Constants.tokenDelimeter);
         headerLength = headersRow.length; 
+      }
+      if(this.dataCounter >= 7) {
+        this.showProcessingMessage = true;
+        this.disableDownload = true;
+        this.startFileProcessing();
       }
       console.log("Reading data from file")
       
@@ -139,6 +147,13 @@ export class TestComponent implements OnInit {
   })
   }
  
+  startFileProcessing() {
+    setTimeout(() =>{
+      this.showProcessingMessage = false;
+      this.disableDownload = false;
+      this.resumeDownload = true;
+    },150000)
+  }
 
   decodeImie(data) {
     let stringToReturn = "";
@@ -178,7 +193,7 @@ export class TestComponent implements OnInit {
 
     }
     this.downloadingFile = false;
-    this.disableDownload = false;
+    // this.disableDownload = false;
   }
 
 
@@ -198,6 +213,8 @@ export class TestComponent implements OnInit {
 
 repeat2() {
   this.downloadingFile = true;
+  this.resumeDownload = false;
+  this.dataCounter = 0;
   this.disableDownload = true;
   let startIndex = parseInt(this.startDeviceId,16);
   let endIndex = parseInt(this.endDeviceId,16)
@@ -211,12 +228,15 @@ repeat2() {
     let that = this
     setTimeout(function(){
       that.getData(event);
+      that.dataCounter ++;
       that.downloadingFile = true;
       that.disableDownload = true;
+      
         // console.log('count ', k);
         // console.log(startIndex, endIndex)
     }, 20000 * (k + 1));
   }
+  
 }
 
   getData(event?:any) {

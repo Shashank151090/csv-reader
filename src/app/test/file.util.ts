@@ -60,6 +60,35 @@ export class FileUtil {
         let csvContent = "Device ID, A6, IMEI, CCID, A1, HardWare Version, SoftWare Version, Product Version, A4, Battery Percentage, Latitute, Longitute, Temperature Range \n" 
        for(let i=0;i<rows.length;i++) {
            console.log(rows[i]);
+
+        if(!rows[i].deviceId) {
+            rows[i].deviceId = ""
+        } else if(!rows[i].A6) {
+            rows[i].A6 = ""
+        } else if(!rows[i].imei) {
+            rows[i].imei = ""
+        } else if(!rows[i].ccid) {
+            rows[i].ccid = ""
+        } else if(rows[i].A1) {
+            rows[i].A1 = ""
+        } else if(!!rows[i].hwv) {
+            rows[i].hwv = ""
+        } else if(!rows[i].swv) {
+            rows[i].swv = ""
+        } else if(!rows[i].pv) {
+            rows[i].pv = ""
+        } else if(!rows[i].A4) {
+            rows[i].A4 = ""
+        } else if(!rows[i].battery) {
+            rows[i].battery = ""
+        } else if(!rows[i].lat) {
+            rows[i].lat = ""
+        } else if(!rows[i].long) {
+            rows[i].long = ""
+        } else if(!rows[i].temp) {
+            rows[i].temp = ""
+        }
+
            csvContent += rows[i].deviceId + ','+
                          rows[i].A6+','+
                          rows[i].imei+','+ 
