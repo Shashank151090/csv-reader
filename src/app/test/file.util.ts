@@ -63,29 +63,41 @@ export class FileUtil {
 
         if(!rows[i].deviceId) {
             rows[i].deviceId = ""
-        } else if(!rows[i].A6) {
+        } 
+         if(!rows[i].A6) {
             rows[i].A6 = ""
-        } else if(!rows[i].imei) {
+        } 
+         if(!rows[i].imei) {
             rows[i].imei = ""
-        } else if(!rows[i].ccid) {
+        } 
+         if(!rows[i].ccid) {
             rows[i].ccid = ""
-        } else if(rows[i].A1) {
+        } 
+         if(!rows[i].A1) {
             rows[i].A1 = ""
-        } else if(!!rows[i].hwv) {
+        } 
+         if(!rows[i].hwv) {
             rows[i].hwv = ""
-        } else if(!rows[i].swv) {
+        } 
+         if(!rows[i].swv) {
             rows[i].swv = ""
-        } else if(!rows[i].pv) {
+        } 
+         if(!rows[i].pv) {
             rows[i].pv = ""
-        } else if(!rows[i].A4) {
+        } 
+         if(!rows[i].A4) {
             rows[i].A4 = ""
-        } else if(!rows[i].battery) {
+        } 
+         if(!rows[i].battery) {
             rows[i].battery = ""
-        } else if(!rows[i].lat) {
+        } 
+         if(!rows[i].lat) {
             rows[i].lat = ""
-        } else if(!rows[i].long) {
+        } 
+         if(!rows[i].long) {
             rows[i].long = ""
-        } else if(!rows[i].temp) {
+        } 
+         if(!rows[i].temp) {
             rows[i].temp = ""
         }
 

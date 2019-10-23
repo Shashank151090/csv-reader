@@ -151,7 +151,8 @@ export class TestComponent implements OnInit {
     setTimeout(() =>{
       this.showProcessingMessage = false;
       this.disableDownload = false;
-      this.resumeDownload = true;
+      // this.resumeDownload = true;
+      this.repeat2();
     },150000)
   }
 
@@ -222,6 +223,7 @@ repeat2() {
   // console.log(noOfDevice);
   for(var i = 0;i < 7; i++){
     if (i> noOfDevice){
+      this.disableDownload = false;
       break;
     }
     let k = i;
