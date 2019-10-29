@@ -20,9 +20,18 @@ app.use(function(req, res, next) {
   });   
  
 //ROUTES WILL GO HERE
-app.get('/', function(req, res) {
-    res.json({ message: 'WELCOME' });   
-    var test = path.join(os.homedir(),fileLocation)
+// app.get('/', function(req, res) {
+//     res.json({ message: 'WELCOME' });   
+//     var test = path.join(os.homedir(),fileLocation)
+// });
+
+
+// Serve only the static files form the dist directory
+app.use(express.static(__dirname + '/dist/csvReader'));
+
+app.get('/*', function(req,res) {
+    
+res.sendFile(path.join(__dirname+'/dist/csvReader/index.html'));
 });
 
 app.get('/getFile', function(req, res) {
@@ -75,4 +84,4 @@ app.delete('/delete', function(req, res) {
  
 })
 
-app.listen(4000, () => console.log('Server started on port 4000'));
+app.listen(process.env.PORT || 4000, () => console.log('Server started on port 4000'));

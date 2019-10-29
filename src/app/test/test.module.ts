@@ -3,7 +3,7 @@ import { CommonModule }                     from '@angular/common';
 import { Routes, RouterModule }             from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule  }                       from '@angular/common/http';
-import { TestComponent }                    from './test.component';
+// import { TestComponent }                    from './test.component';
 import { TestRoutes }                       from './test.routes';
 import { FileUtil }                         from './file.util';
 import { Constants }                        from './test.constants';
@@ -24,7 +24,7 @@ import { Constants }                        from './test.constants';
 
     // put all your components / directives / pipes here
     declarations:[
-        TestComponent
+        // TestComponent
     ],
 
     // put all your services here
