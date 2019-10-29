@@ -26,7 +26,7 @@ export class ApiService {
     'Something bad happened; please try again later.');
 };
   getFiles() {
-    return this.http.get('https://csv-reader-gnd.herokuapp.com:80/getFile', {responseType: 'text'})
+    return this.http.get('http://localhost:4000/getFile', {responseType: 'text'})
     .pipe(
       retry(3), // retry a failed request up to 3 times
       catchError(this.handleError) // then handle the error
@@ -36,9 +36,9 @@ export class ApiService {
     let body = {
       data: deviceId
     }
-    return this.http.post('https://csv-reader-gnd.herokuapp.com/downloadFile',body)
+    return this.http.post('http://localhost:4000/downloadFile',body)
   }
   deleteFiles() {
-    return this.http.delete('https://csv-reader-gnd.herokuapp.com:80/delete', {responseType: 'json'})
+    return this.http.delete('http://localhost:4000/delete', {responseType: 'json'})
   }
 }
