@@ -15,9 +15,9 @@ export class filterPipe implements PipeTransform {
             let tempValue = false;
             let arrayTemp = value[i];
             // console.log(arrayTemp);
-            if(arrayTemp[3] && arrayTemp[3].startsWith('A100')){
+            if(arrayTemp[3] && arrayTemp[3].startsWith('A1')){
                 for (let j=0; j<arrayToReturn.length; j++){
-                    if(arrayToReturn[j].startsWith('A100')) {
+                    if(arrayToReturn[j].startsWith('A1')) {
                          tempValue = true;
                     }
                 }
@@ -25,19 +25,9 @@ export class filterPipe implements PipeTransform {
                     arrayToReturn.push(arrayTemp[3]);
                 }
             }
-            if(arrayTemp[3] && arrayTemp[3].startsWith('A400')){
+            if(arrayTemp[3] && arrayTemp[3].startsWith('A4')){
                 for (let j=0; j<arrayToReturn.length; j++){
-                    if(arrayToReturn[j].startsWith('A400')) {
-                         tempValue = true;
-                    }
-                }
-                if (tempValue == false) {
-                    arrayToReturn.push(arrayTemp[3]);
-                }                
-            }
-            if(arrayTemp[3] && arrayTemp[3].startsWith('A600')){
-                for (let j=0; j<arrayToReturn.length; j++){
-                    if(arrayToReturn[j].startsWith('A600')) {
+                    if(arrayToReturn[j].startsWith('A4')) {
                          tempValue = true;
                     }
                 }
@@ -45,9 +35,9 @@ export class filterPipe implements PipeTransform {
                     arrayToReturn.push(arrayTemp[3]);
                 }                
             }
-            if(arrayTemp[3] && arrayTemp[3].startsWith('A700')){
+            if(arrayTemp[3] && arrayTemp[3].startsWith('A6')){
                 for (let j=0; j<arrayToReturn.length; j++){
-                    if(arrayToReturn[j].startsWith('A700')) {
+                    if(arrayToReturn[j].startsWith('A6')) {
                          tempValue = true;
                     }
                 }
@@ -55,9 +45,19 @@ export class filterPipe implements PipeTransform {
                     arrayToReturn.push(arrayTemp[3]);
                 }                
             }
-            if(arrayTemp[3] && arrayTemp[3].startsWith('AB00')){
+            if(arrayTemp[3] && arrayTemp[3].startsWith('A7')){
                 for (let j=0; j<arrayToReturn.length; j++){
-                    if(arrayToReturn[j].startsWith('AB00')) {
+                    if(arrayToReturn[j].startsWith('A7')) {
+                         tempValue = true;
+                    }
+                }
+                if (tempValue == false) {
+                    arrayToReturn.push(arrayTemp[3]);
+                }                
+            }
+            if(arrayTemp[3] && arrayTemp[3].startsWith('AB')){
+                for (let j=0; j<arrayToReturn.length; j++){
+                    if(arrayToReturn[j].startsWith('AB')) {
                          tempValue = true;
                     }
                 }
@@ -67,9 +67,9 @@ export class filterPipe implements PipeTransform {
             }
             if(arrayTemp.length>4) {
                 for(let j=4; j<arrayTemp.length;j++) {
-                    if(arrayTemp[j] && arrayTemp[j].startsWith('A900')){
+                    if(arrayTemp[j] && arrayTemp[j].startsWith('A9')){
                         for (let k=0; k<arrayToReturn.length; k++){
-                            if(arrayToReturn[k].startsWith('A900')) {
+                            if(arrayToReturn[k].startsWith('A9')) {
                                  tempValue = true;
                             }
                         }
