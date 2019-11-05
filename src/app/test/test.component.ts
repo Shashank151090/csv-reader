@@ -270,7 +270,7 @@ repeat2() {
     } 
     let todayDate = yyyy+month+date;
 
-    window.location.href = 'https://escavoxwebapi.azurewebsites.net/IoT/1.0/GetRaw/'+this.startDeviceId+'/20190901-0000/'+todayDate+'-0000';
+    window.location.href = 'https://escavoxwebapi.azurewebsites.net/IoT/1.0/GetRaw/'+this.startDeviceId+'/20191030-0000/'+todayDate+'-0000';
     let newstartDeviceId = parseInt(this.startDeviceId,16);
     newstartDeviceId +=1;
     let hexstartDeviceId= newstartDeviceId.toString(16);
